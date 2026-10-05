@@ -6,6 +6,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update -qq && sudo apt-get install -y -qq lua5.4 liblua5.4-dev luarocks libssl-dev
-      - run: sudo luarocks install luasocket && sudo luarocks install luasec && sudo luarocks install dkjson
+      - run: for r in luasocket luasec dkjson; do sudo luarocks --lua-version=5.4 install $r; done
       - run: lua5.4 test.lua live
-      - run: sudo luarocks make veida-0.1.0-1.rockspec && veida "a stack of old hardcover books under a desk lamp"
+      - run: sudo luarocks --lua-version=5.4 make veida-0.1.0-1.rockspec && veida "a stack of old hardcover books under a desk lamp"
