@@ -1,0 +1,11 @@
+name: live
+on: [push, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq lua5.4 liblua5.4-dev luarocks libssl-dev
+      - run: sudo luarocks install luasocket && sudo luarocks install luasec && sudo luarocks install dkjson
+      - run: lua5.4 test.lua live
+      - run: sudo luarocks make veida-0.1.0-1.rockspec && veida "a stack of old hardcover books under a desk lamp"

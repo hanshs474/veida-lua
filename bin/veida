@@ -1,0 +1,14 @@
+#!/usr/bin/env lua
+-- veida "an isometric coffee shop, pastel palette"
+local veida = require("veida")
+local prompt = table.concat(arg, " ")
+if prompt == "" then
+  io.stderr:write('usage: veida "your prompt"\n')
+  os.exit(2)
+end
+local img, err = veida.generate(prompt)
+if not img then
+  io.stderr:write(err.reason, ": ", err.message, "\n")
+  os.exit(err.reason == "quota" and 3 or 1)
+end
+print(img.url)
